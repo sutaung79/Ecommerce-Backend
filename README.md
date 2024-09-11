@@ -109,7 +109,56 @@ To install and run this project, make sure you have Java, Maven, and a Oracle da
    mvn clean install
    mvn spring-boot:run
    ```
+## Sample Request Data
 
+- User
+```
+{
+  "firstName": "Dante",
+  "lastName": "Davis",
+  "mobileNumber": "0934324343",
+  "email": "davis@gmail.com",
+  "password": "davis123",
+
+  "address": {
+    "street": "Kirby Dr",
+    "building": "58080",
+    "city": "Houston",
+    "province": "Texas",
+    "country": "US",
+    "pincode": "770005"
+  }
+}
+```
+
+`NOTE` : The roles are already defined, with `role_id 101` assigned to the `ADMIN` role and `role_id 102` assigned to the `USER` role.  
+For Admin access to create products, categories, and more, you need to manually update the database with the following command:
+```
+UPDATE user_role SET role_id = 101 WHERE user_id = your_user_id;
+COMMIT;
+```
+
+
+- Category
+```
+{
+   "categoryName": "Groceries"
+}
+```
+
+- Product
+```
+{
+ 
+  "productName": "egg",
+  "image": "egg.png",
+  "description": "great source of high-quality protein",
+  "quantity": 40,
+  "price": 5,
+  "discount": 0.1
+  
+}
+```
 
 ## API Documentation
 * API documentation is available via Swagger UI at http://localhost:8080/swagger-ui/index.html
