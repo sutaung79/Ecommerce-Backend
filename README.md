@@ -11,18 +11,19 @@ This E-Commerce Application uses Java and Spring Boot. It focuses on security an
 * Oracle
 
 ## Features
-* User:
-    * Register and log in
-    * View categories and products by category
-    * Add and remove products from the cart
-    * Place orders and manage addresses
-* Admin:
-    * Users: Manage user accounts.
-    * Address: Handle user addresses.
-    * Categories: Update product categories.
-    * Products: Add, change, and remove products.
-    * Price & Discount: Set and change prices and discounts.
-    * Orders: Track and manage orders.
+- **User Registration and Login**: Users can create accounts and log in securely.
+- **Product Browsing**: View products organized by categories.
+- **Shopping Cart**: Add and remove products from the cart.
+- **Order Placement**: Place orders and manage shipping addresses.
+- **Admin**:
+   - Manage user accounts
+   - Handle addresses
+   - Update product categories
+   - Add, update, and remove products
+   - Set and adjust prices and discounts
+   - Track and manage orders
+- **Authentication**: Secure API access using JSON Web Tokens (JWT) managed by Auth0.
+
 
 ## Security
 The API is protected with JSON Web Tokens (JWT) managed by Auth0. To access the API, you need to get a JWT by authenticating with the system.
@@ -60,14 +61,19 @@ The code follows a typical **MVC (Model-View-Controller)** architecture, separat
 ![ecom-erDiagram](https://github.com/user-attachments/assets/b0b56de0-678a-4087-897e-9c425b913e00)
 This ER diagram outlines the structure of an eCommerce platform's database, focusing on user management, products, and transactions.
 
-- **Users** : Central entity representing customers, with links to addresses, roles, and carts.
-- **Roles** : Defines user roles (e.g., admin, customer) assigned to each user.
-- **Addresses** : Stores multiple addresses for each user.
-- **Carts & Cart Items** : Manages user shopping carts and the items within each cart.
-- **Products** : Catalog of products, each belonging to a category and containing pricing and discount details.
-- **Categories** : Groups products into various categories.
-- **Orders & Order Items** : Tracks user orders and the individual products in each order.
-- **Payments** : Records the payment methods used for orders.
+### Database Design Decisions
+- **Product** : Represents items available for purchase.
+- **User** : Represents customers of the eCommerce platform.
+- **Order** : Represents a purchase made by a user.
+- **OrderItem** : Represents individual items within an order.
+- **Cart** : Represents a user's shopping cart.
+- **CartItem** : Represents items in a user's cart.
+
+### Relationships
+- **Product** : A product can be part of multiple `OrderItem` and `CartItem` entities.
+- **User** : A user can have multiple `Orders` and a `Cart`. The `Cart` can contain multiple `CartItems`.
+- **Order** : An order can contain multiple `OrderItems`.
+- **Cart** : A cart can contain multiple `CartItems`.
 
 The relationships between entities ensure that users can manage products, place orders, and make payments efficiently within the system.
 
@@ -76,14 +82,34 @@ The relationships between entities ensure that users can manage products, place 
 
 ## Installation & Running
 To install and run this project, make sure you have Java, Maven, and a Oracle database installed on your computer. Then, follow these steps:
-1. Clone the repository: git clone https://github.com/sutaung79/Ecommerce-Backend.git
-2. Update application.properties with your Oracle database connection details.
-3. run the app : execute the main method in the BackendEcommerceApplication class from your IDE.
-    Alternatively you can use the Spring Boot Maven plugin like so:
-    
+### Setup
+1. **Clone the Repository:**
+   ```
+   git clone https://github.com/sutaung79/Ecommerce-Backend.git
+   cd Ecommerce-Backend
+   ```
+2. **Set Up Dependencies:**
+    - Ensure you have Java JDK 17 or later installed.
+    - Dependencies are already included in the pom.xml, so you don't need to add them manually.
+3. **Configure Database:**
+    - Update the `application.properties` file located in `src/main/resources` with your Oracle database configuration:
+    ---
     ```
-    mvn spring-boot:run
+    spring.datasource.url=jdbc:oracle:thin:@<host>:<port>:<sid>
+    spring.datasource.username=<your-username>
+    spring.datasource.password=<your-password>
+    spring.jpa.hibernate.ddl-auto=update
     ```
+4. **Run the Application:**
+   - If you are using Maven, build the project with `mvn clean install` and run the application with `mvn spring-boot:run`.
+   - Alternatively, you can run the `main` class of the Application directly.
+  
+   ### Build and Run with Maven
+    ```
+   mvn clean install
+   mvn spring-boot:run
+   ```
+
 
 ## API Documentation
 * API documentation is available via Swagger UI at http://localhost:8080/swagger-ui/index.html
