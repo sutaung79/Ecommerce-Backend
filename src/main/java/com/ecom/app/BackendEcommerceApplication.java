@@ -36,6 +36,8 @@ public class BackendEcommerceApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
+		System.out.println("Hello WORLD");
 		try {
 			Role adminRole = new Role();
 			adminRole.setRoleId(AppConstants.ADMIN_ID);
